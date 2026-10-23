@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>海洋消消乐 · 背单词</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- 开始界面 -->
+<div id="start-screen" class="screen active">
+  <div class="ocean-bg">
+    <div class="bubble b1"></div><div class="bubble b2"></div><div class="bubble b3"></div>
+    <div class="bubble b4"></div><div class="bubble b5"></div><div class="bubble b6"></div>
+  </div>
+  <div class="start-content">
+    <div class="logo-wrap">
+      <svg class="logo-fish" viewBox="0 0 120 80" width="90" height="60">
+        <ellipse cx="50" cy="40" rx="32" ry="20" fill="#f8a0a0"/>
+        <polygon points="82,40 105,25 105,55" fill="#f8a0a0"/>
+        <ellipse cx="42" cy="34" rx="10" ry="6" fill="#fff" opacity="0.5"/>
+        <circle cx="30" cy="36" r="4" fill="#333"/>
+        <circle cx="31" cy="35" r="1.5" fill="#fff"/>
+        <path d="M 20 45 Q 35 52 50 48" stroke="#e08080" stroke-width="1.5" fill="none"/>
+      </svg>
+    </div>
+    <h1 class="game-title">海洋消消乐</h1>
+    <p class="game-subtitle">· 背单词 ·</p>
+    <p class="game-desc">消除海洋生物，收集光点，边玩边记单词</p>
+    <div class="level-buttons">
+      <button class="level-btn" data-level="primary">
+        <span class="level-name">小学</span>
+        <span class="level-count">800 词</span>
+      </button>
+      <button class="level-btn" data-level="junior">
+        <span class="level-name">初中</span>
+        <span class="level-count">200 词</span>
+      </button>
+      <button class="level-btn" data-level="senior">
+        <span class="level-name">高中</span>
+        <span class="level-count">195 词</span>
+      </button>
+      <button class="level-btn" data-level="college">
+        <span class="level-name">大学</span>
+        <span class="level-count">200 词</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- 游戏界面 -->
+<div id="game-screen" class="screen">
+  <div class="ocean-bg">
+    <div class="bubble b1"></div><div class="bubble b3"></div><div class="bubble b5"></div>
+  </div>
+
+  <!-- 顶部栏 -->
+  <div class="top-bar">
+    <button id="btn-back" class="icon-btn" title="返回">
+      <svg viewBox="0 0 24 24" width="22" height="22"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+    <div class="top-stats">
+      <div class="stat stat-steps">
+        <svg viewBox="0 0 24 24" width="16" height="16"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 7v5l3 3" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+        <span id="steps-left">20</span>
+      </div>
+      <div class="stat stat-lights">
+        <svg viewBox="0 0 24 24" width="16" height="16"><path d="M12 2l2.5 7H22l-6 4.5L18.5 21 12 16.5 5.5 21 8 13.5 2 9h7.5z" fill="currentColor"/></svg>
+        <span id="lights-count">0</span>/<span id="lights-target">30</span>
+      </div>
+      <button id="btn-sound" class="icon-btn" title="语音朗读">
+        <svg viewBox="0 0 24 24" width="22" height="22" id="icon-sound-on"><path d="M11 5L6 9H2v6h4l5 4V5z" fill="currentColor"/><path d="M15 8a5 5 0 010 8M18 5a9 9 0 010 14" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+        <svg viewBox="0 0 24 24" width="22" height="22" id="icon-sound-off" style="display:none"><path d="M11 5L6 9H2v6h4l5 4V5z" fill="currentColor"/><line x1="15" y1="9" x2="21" y2="15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="21" y1="9" x2="15" y2="15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- 进度条 -->
+  <div class="progress-bar-wrap">
+    <div class="progress-bar">
+      <div id="progress-fill" class="progress-fill"></div>
+    </div>
+  </div>
+
+  <!-- 棋盘 -->
+  <div class="board-wrap">
+    <div id="board" class="board"></div>
+  </div>
+
+  <!-- 单词卡片 -->
+  <div id="word-card" class="word-card">
+    <div class="word-card-inner">
+      <div class="word-en" id="card-en"></div>
+      <div class="word-cn" id="card-cn"></div>
+      <button id="btn-replay" class="replay-btn">
+        <svg viewBox="0 0 24 24" width="18" height="18"><path d="M12 4v10M12 4L8 8M12 4l4 4" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 12a7 7 0 107-7" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+        再听一遍
+      </button>
+    </div>
+  </div>
+
+  <!-- 结束遮罩 -->
+  <div id="end-overlay" class="end-overlay">
+    <div class="end-panel">
+      <div id="end-icon" class="end-icon"></div>
+      <h2 id="end-title"></h2>
+      <p id="end-msg"></p>
+      <div class="end-stats">
+        <div class="end-stat">
+          <span class="end-stat-label">收集光点</span>
+          <span class="end-stat-value" id="end-lights">0</span>
+        </div>
+      </div>
+      <button id="btn-retry" class="primary-btn">再玩一次</button>
+      <button id="btn-back-level" class="secondary-btn">返回选关</button>
+    </div>
+  </div>
+</div>
+
+<script src="words-data.js"></script>
+<script src="game.js"></script>
+</body>
+</html>
